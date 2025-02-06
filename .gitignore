@@ -1,0 +1,8 @@
+.env
+documents_bucket_path
+.venv
+venv
+backups
+.env.dev
+
+sqlite.db

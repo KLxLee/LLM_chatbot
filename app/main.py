@@ -1,0 +1,12 @@
+import fastapi
+
+
+app = fastapi()
+
+
+
+
+
+
+
+

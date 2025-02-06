@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "llm-chatbot"
+version = "0.1.0"
+description = ""
+authors = ["KLxLee <kuanlim0210@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.8"
+weaviate-client = "^4.10.4"
+openai = "^1.61.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
