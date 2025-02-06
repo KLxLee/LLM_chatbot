@@ -8,10 +8,18 @@ You can chat with the Telegram bot and receive responses from the LLM bot.
 
 ## Deployment Guide
 
-### 1. Clone the repository and change the directory:
+### 1. Preresique:
+Clone the repository
 ```bash
 git clone https://github.com/KLxLee/LLM_chatbot
+```
+change the directory
+```bash
 cd LLM_chatbot
+```
+Create .env file for environment variables:
+```bash
+touch .env
 ```
 
 ### 2. Provide your OpenAI API key:
@@ -19,22 +27,32 @@ To reduce server hardware requirements, a local AI model is not implemented in t
 1. Create an OpenAI account and obtain the API key. You can find the instructions here:  
    [How to Get OpenAI Access Token](https://docs.text-gen.com/_notes/old/general/Get+OpenAI+Access+Token).
 2. Define your OpenAI API key in the `.env` file with the variable name `OPENAI_API_KEY`.
+   ```bash
+   echo 'OPENAI_API_KEY=<your_key>' >> .env
+   ```
 
 ### 3. Expose a public port using NGROK:
 NGROK is a cross-platform tool that allows developers to expose a local development server to the internet easily.  
 For users who prefer not to set up a cloud server, NGROK can be used to expose a public port.
 1. Set up a free NGROK account.
 2. Define your NGROK authentication key in the `.env` file with the variable name `NGROK_AUTH_TOKEN`.
+   ```bash
+   echo 'NGROK_AUTH_TOKEN=<your_token>' >> .env
+   ```
 
 ### 4. Integrate with Telegram Bot:
 1. Create a Telegram bot and obtain the bot authentication key. Follow these tutorials:  
    - [How to Create a Telegram Bot](https://www.directual.com/lesson-library/how-to-create-a-telegram-bot)  
    - [YouTube Tutorial](https://www.youtube.com/watch?v=UQrcOj63S2o)
 2. Define your Telegram Bot API key in the `.env` file with the variable name `TELEGRAM_API_KEY`.
+   ```bash
+   echo 'TELEGRAM_API_KEY=<your_key>' >> .env
+   ```
 
 ### 5. Add Custom Knowledge Documents:
 1. Under the `LLM_chatbot/knowledge_docs` directory, there are two folders: `pdf_docs` and `txt_docs`.
 2. Add your text and PDF documents to the corresponding folders.
+3. Can skip this step if you do not want to add any documents for custom knowledge.
 
 ### 6. Start the Application:
 1. Build and run the containers:
