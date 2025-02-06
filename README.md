@@ -57,9 +57,13 @@ For users who prefer not to set up a cloud server, NGROK can be used to expose a
 ### 6. Start the Application:
 1. Build and run the containers:
    ```bash
+   docker compose up
+   ```
+   or
+   ```bash
    docker-compose up
    ```
-2. It may take some time to build the containers and embed the data into the vector store.
+3. It may take some time to build the containers and embed the data into the vector store.
 
 ### 7. Chat with the Custom Knowledge Bot via Telegram:
 1. After the application is running, you can start chatting with the Telegram bot and ask questions based on the custom knowledge provided.
