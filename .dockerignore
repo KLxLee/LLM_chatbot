@@ -1,0 +1,28 @@
+# Python cache and compiled files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Local IDE and editor configurations
+.vscode/
+.idea/
+*.code-workspace
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Exclude macOS system files
+.DS_Store
+__MACOSX
+
+# Exclude Git-related files
+.git
+.gitignore
+.gitattributes

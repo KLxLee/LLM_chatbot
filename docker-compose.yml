@@ -9,27 +9,63 @@ services:
     networks:
       - backend
 
+  # weaviate:
+  #   image: cr.weaviate.io/semitechnologies/weaviate:1.28.4
+  #   restart: on-failure:0
+  #   ports:
+  #   - 8080:8080
+  #   - 50051:50051
+  #   environment:
+  #     QUERY_DEFAULTS_LIMIT: 20
+  #     AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+  #     PERSISTENCE_DATA_PATH: "./data"
+  #     DEFAULT_VECTORIZER_MODULE: text2vec-transformers
+  #     ENABLE_MODULES: text2vec-transformers
+  #     TRANSFORMERS_INFERENCE_API: http://t2v-transformers:8080
+  #     CLUSTER_HOSTNAME: 'node1'
+  # t2v-transformers:
+  #   image: cr.weaviate.io/semitechnologies/transformers-inference:sentence-transformers-multi-qa-MiniLM-L6-cos-v1
+  #   environment:
+  #     ENABLE_CUDA: 0 # set to 1 to enable
+
   weaviate:
-    image: semitechnologies/weaviate:latest
     container_name: weaviate
-    environment:
-      - QUERY_DEFAULTS_LIMIT=20
-      - AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED=true
-      - PERSISTENCE_DATA_PATH=/var/lib/weaviate
-      - CLUSTER_HOSTNAME=weaviate
-      - CLUSTER_BROADCAST_ADDR=weaviate
-      - CLUSTER_PORT=7000
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      # - WEAVIATE_PASSWORD=<your_password_here> # Optional password for additional security
+    command:
+    - --host
+    - 0.0.0.0
+    - --port
+    - '8080'
+    - --scheme
+    - http
+    image: cr.weaviate.io/semitechnologies/weaviate:1.28.2
     ports:
-      - "8080:8080"
-    depends_on:
-      - redis
-    networks:
-      - backend
+    - 8080:8080
+    - 50051:50051
+    restart: on-failure:0
+    environment:
+      OPENAI_APIKEY: $OPENAI_APIKEY
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      DEFAULT_VECTORIZER_MODULE: 'text2vec-openai'
+      ENABLE_MODULES: 'text2vec-openai'
+      CLUSTER_HOSTNAME: 'node1'
+
+  chatbot_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: llm_chatbot_container
     volumes:
-      - weaviate_data:/var/lib/weaviate
+      - .:/app  # Mount the current directory to /app in the container
+    # environment:
+    #   - PYTHONUNBUFFERED=1  # Prevent buffering of stdout and stderr
+    depends_on:
+      - redis  # Make sure the redis service starts before app
+      - weaviate # Make sure the weaviate service starts before app
+    ports:
+      - "8000:8000"  # Expose the app on port 8000
+
 
 volumes:
   redis_data:

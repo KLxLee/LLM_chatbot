@@ -3,13 +3,19 @@ name = "llm-chatbot"
 version = "0.1.0"
 description = ""
 authors = ["KLxLee <kuanlim0210@gmail.com>"]
-readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
 fastapi = "^0.115.8"
-weaviate-client = "^4.10.4"
 openai = "^1.61.1"
+weaviate-client = "^4.10.4"
+langchain-weaviate = "^0.0.4"
+langchain-openai = "^0.3.3"
+langchain-community = "^0.3.16"
+langchain = "^0.3.17"
+pymupdf = "^1.25.3"
+pyngrok = "^7.2.3"
+uvicorn = "^0.34.0"
 
 
 [build-system]
